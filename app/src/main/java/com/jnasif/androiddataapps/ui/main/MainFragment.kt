@@ -2,11 +2,13 @@ package com.jnasif.androiddataapps.ui.main
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.jnasif.androiddataapps.R
+import com.jnasif.androiddataapps.data.Monster
 
 class MainFragment : Fragment() {
 
@@ -20,6 +22,8 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val monster = Monster("Subzero", "myFile", "Caption", "Description", .1, 10)
+        Log.i("Monster Tag", monster.toString())
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
