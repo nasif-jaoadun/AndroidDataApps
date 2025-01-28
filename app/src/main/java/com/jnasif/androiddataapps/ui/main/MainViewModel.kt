@@ -9,7 +9,8 @@ import com.jnasif.androiddataapps.utilities.FileHelper
 
 class MainViewModel(app : Application) : AndroidViewModel(app) {
     init {
-        val text = FileHelper.getTextFromResources(app, R.raw.monster_data)
+//        val text = FileHelper.getTextFromResources(app, R.raw.monster_data)
+        val text = FileHelper.getTextFromAsset(app, "monster_data.json")
         Log.i(LOG_TAG, text)
     }
 }
