@@ -1,8 +1,6 @@
 package com.jnasif.androiddataapps.data
 
 import android.content.Context
-import android.util.Log
-import com.jnasif.androiddataapps.LOG_TAG
 import com.jnasif.androiddataapps.utilities.FileHelper
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
