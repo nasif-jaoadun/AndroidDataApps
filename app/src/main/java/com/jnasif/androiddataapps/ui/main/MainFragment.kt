@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import com.jnasif.androiddataapps.LOG_TAG
 import com.jnasif.androiddataapps.R
 import com.jnasif.androiddataapps.data.Monster
+import com.jnasif.androiddataapps.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
 
@@ -19,18 +20,23 @@ class MainFragment : Fragment() {
     }
 
     private lateinit var viewModel: MainViewModel
+    private lateinit var binding : FragmentMainBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentMainBinding.inflate(inflater, container, false)
+        val root: View = binding.root
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        viewModel.monsterData.observe(this, Observer {
+        viewModel.monsterData.observe(viewLifecycleOwner, Observer {
+            val monsterNames = StringBuilder()
             for (monster in it){
-                Log.i(LOG_TAG, "${monster.name} (\$${monster.price})")
+                monsterNames.append(monster.name).append("\n")
             }
+            binding.message.text = monsterNames
         })
-        return inflater.inflate(R.layout.fragment_main, container, false)
+        return root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
