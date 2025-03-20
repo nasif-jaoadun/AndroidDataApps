@@ -17,7 +17,7 @@ class MonsterRepository(val app: Application) {
     private val listType = Types.newParameterizedType(List::class.java, Monster::class.java)
     init {
         getMonsterData()
-        Log.i(LOG_TAG, "Network Available: ${networkAvailable()}")
+        Log.i(LOG_TAG, "Network Available?: ${networkAvailable()}")
     }
     fun getMonsterData(){
 //        val text = FileHelper.getTextFromResources(app, R.raw.monster_data)
