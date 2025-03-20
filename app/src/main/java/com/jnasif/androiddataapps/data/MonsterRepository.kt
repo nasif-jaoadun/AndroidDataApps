@@ -2,7 +2,10 @@ package com.jnasif.androiddataapps.data
 
 import android.app.Application
 import android.content.Context
+import android.net.ConnectivityManager
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.jnasif.androiddataapps.LOG_TAG
 import com.jnasif.androiddataapps.utilities.FileHelper
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
@@ -14,6 +17,7 @@ class MonsterRepository(val app: Application) {
     private val listType = Types.newParameterizedType(List::class.java, Monster::class.java)
     init {
         getMonsterData()
+        Log.i(LOG_TAG, "Network Available: ${networkAvailable()}")
     }
     fun getMonsterData(){
 //        val text = FileHelper.getTextFromResources(app, R.raw.monster_data)
@@ -21,5 +25,12 @@ class MonsterRepository(val app: Application) {
         val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
         val adapter: JsonAdapter<List<Monster>> = moshi.adapter(listType)
         monsterData.value = adapter.fromJson(text) ?: emptyList()
+    }
+
+    @Suppress("DEPRECATION")
+    private fun networkAvailable(): Boolean {
+        val connectivityManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo?.isConnectedOrConnecting ?: false
     }
 }
