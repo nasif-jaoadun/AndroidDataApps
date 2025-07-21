@@ -15,7 +15,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 class MonsterRepository(val app: Application) {
     val monsterData = MutableLiveData<List<Monster>>()
-    private val listType = Types.newParameterizedType(List::class.java, Monster::class.java)
     init {
         CoroutineScope(Dispatchers.IO).launch {
             callWebService()
