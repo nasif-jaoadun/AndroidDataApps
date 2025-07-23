@@ -32,7 +32,7 @@ class MainFragment : Fragment() {
         viewModel.monsterData.observe(viewLifecycleOwner, Observer {
             val monsterNames = StringBuilder()
             for (monster in it){
-                monsterNames.append(monster.monsterName).append("\n")
+                monsterNames.append(monster.name).append("\n")
             }
             binding.message.text = monsterNames
         })

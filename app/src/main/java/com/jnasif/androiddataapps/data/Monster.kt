@@ -3,7 +3,7 @@ package com.jnasif.androiddataapps.data
 import com.squareup.moshi.Json
 
 data class Monster (
-    val monsterName: String,
+    @field:Json(name = "monsterName") val name: String,
     val imageFile: String,
     val caption: String,
     val description: String,
