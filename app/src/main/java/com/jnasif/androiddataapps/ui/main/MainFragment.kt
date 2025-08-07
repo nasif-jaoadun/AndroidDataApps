@@ -30,11 +30,7 @@ class MainFragment : Fragment() {
         val root: View = binding.root
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.monsterData.observe(viewLifecycleOwner, Observer {
-            val monsterNames = StringBuilder()
-            for (monster in it){
-                monsterNames.append(monster.name).append("\n")
-            }
-            binding.message.text = monsterNames
+
         })
         return root
     }
