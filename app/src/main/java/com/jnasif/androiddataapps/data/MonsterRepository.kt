@@ -16,9 +16,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 class MonsterRepository(val app: Application) {
     val monsterData = MutableLiveData<List<Monster>>()
     init {
-        CoroutineScope(Dispatchers.IO).launch {
-            callWebService()
-        }
+        refreshData()
     }
     @WorkerThread
     suspend fun callWebService(){
@@ -35,5 +33,11 @@ class MonsterRepository(val app: Application) {
         val connectivityManager = app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
         return networkInfo?.isConnectedOrConnecting ?: false
+    }
+
+    fun refreshData() {
+        CoroutineScope(Dispatchers.IO).launch {
+            callWebService()
+        }
     }
 }
