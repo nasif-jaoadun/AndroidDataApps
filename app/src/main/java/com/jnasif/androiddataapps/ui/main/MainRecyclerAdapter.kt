@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.jnasif.androiddataapps.R
 import com.jnasif.androiddataapps.data.Monster
 
-class MainRecyclerAdapter(val context : Context, val monsters : List<Monster>) : RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder>() {
+class MainRecyclerAdapter(val context : Context, val monsters : List<Monster>, val itemListener: MonsterItemListener) : RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemview : View) : RecyclerView.ViewHolder(itemview){
         val nameText = itemview.findViewById<TextView>(R.id.nameText)
@@ -37,6 +37,11 @@ class MainRecyclerAdapter(val context : Context, val monsters : List<Monster>) :
             }
             ratingBar?.rating = monster.scariness.toFloat()
             Glide.with(context).load(monster.thumbnailUrl).into(monsterImage)
+            holder.itemView.setOnClickListener{itemListener.onMonsterItemClick(monster)}
         }
+    }
+
+    interface MonsterItemListener {
+        fun onMonsterItemClick(monster: Monster)
     }
 }

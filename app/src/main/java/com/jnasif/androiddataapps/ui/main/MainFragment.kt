@@ -13,7 +13,7 @@ import com.jnasif.androiddataapps.R
 import com.jnasif.androiddataapps.data.Monster
 import com.jnasif.androiddataapps.databinding.FragmentMainBinding
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), MainRecyclerAdapter.MonsterItemListener {
 
     companion object {
         fun newInstance() = MainFragment()
@@ -33,7 +33,7 @@ class MainFragment : Fragment() {
         }
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.monsterData.observe(viewLifecycleOwner, Observer {
-            val adapter = MainRecyclerAdapter(requireContext(), it)
+            val adapter = MainRecyclerAdapter(requireContext(), it, this)
             binding.recyclerView.adapter = adapter
             binding.swipeLayout.isRefreshing = false
         })
@@ -43,6 +43,10 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         // TODO: Use the ViewModel
+    }
+
+    override fun onMonsterItemClick(monster: Monster) {
+        Log.i(LOG_TAG, "Selected Monster: ${monster.name}")
     }
 
 }
