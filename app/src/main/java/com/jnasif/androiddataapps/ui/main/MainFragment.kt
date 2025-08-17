@@ -35,6 +35,7 @@ class MainFragment : Fragment() {
         viewModel.monsterData.observe(viewLifecycleOwner, Observer {
             val adapter = MainRecyclerAdapter(requireContext(), it)
             binding.recyclerView.adapter = adapter
+            binding.swipeLayout.isRefreshing = false
         })
         return root
     }
