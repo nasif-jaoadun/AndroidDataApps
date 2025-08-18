@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.jnasif.androiddataapps.LOG_TAG
 import com.jnasif.androiddataapps.R
 import com.jnasif.androiddataapps.data.Monster
@@ -31,7 +31,7 @@ class MainFragment : Fragment(), MainRecyclerAdapter.MonsterItemListener {
     ): View? {
         binding = FragmentMainBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        navController = Navigation.findNavController(requireActivity(), R.id.nav_host)
+        navController = findNavController()
         binding.swipeLayout.setOnRefreshListener {
             viewModel.refreshData()
         }
