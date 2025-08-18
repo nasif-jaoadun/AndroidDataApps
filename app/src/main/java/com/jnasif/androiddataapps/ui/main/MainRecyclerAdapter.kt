@@ -14,10 +14,10 @@ import com.jnasif.androiddataapps.data.Monster
 
 class MainRecyclerAdapter(val context : Context, val monsters : List<Monster>, val itemListener: MonsterItemListener) : RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder>() {
 
-    inner class ViewHolder(itemview : View) : RecyclerView.ViewHolder(itemview){
-        val nameText = itemview.findViewById<TextView>(R.id.nameText)
-        val monsterImage = itemview.findViewById<ImageView>(R.id.monsterImage)
-        val ratingBar = itemview.findViewById<RatingBar>(R.id.ratingBar)
+    inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
+        val nameText = itemView.findViewById<TextView>(R.id.nameText)
+        val monsterImage = itemView.findViewById<ImageView>(R.id.monsterImage)
+        val ratingBar = itemView.findViewById<RatingBar>(R.id.ratingBar)
     }
 
     override fun getItemCount(): Int = monsters.size

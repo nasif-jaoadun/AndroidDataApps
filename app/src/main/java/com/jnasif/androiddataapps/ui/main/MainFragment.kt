@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.jnasif.androiddataapps.LOG_TAG
 import com.jnasif.androiddataapps.R
 import com.jnasif.androiddataapps.data.Monster
@@ -21,6 +23,7 @@ class MainFragment : Fragment(), MainRecyclerAdapter.MonsterItemListener {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var binding : FragmentMainBinding
+    private lateinit var navController : NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,12 +31,13 @@ class MainFragment : Fragment(), MainRecyclerAdapter.MonsterItemListener {
     ): View? {
         binding = FragmentMainBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        navController = Navigation.findNavController(requireActivity(), R.id.nav_host)
         binding.swipeLayout.setOnRefreshListener {
             viewModel.refreshData()
         }
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.monsterData.observe(viewLifecycleOwner, Observer {
-            val adapter = MainRecyclerAdapter(requireContext(), it, this)
+            val adapter = MainRecyclerAdapter(requireActivity(), it, this)
             binding.recyclerView.adapter = adapter
             binding.swipeLayout.isRefreshing = false
         })
@@ -47,6 +51,7 @@ class MainFragment : Fragment(), MainRecyclerAdapter.MonsterItemListener {
 
     override fun onMonsterItemClick(monster: Monster) {
         Log.i(LOG_TAG, "Selected Monster: ${monster.name}")
+        navController.navigate(R.id.action_nav_detail)
     }
 
 }
