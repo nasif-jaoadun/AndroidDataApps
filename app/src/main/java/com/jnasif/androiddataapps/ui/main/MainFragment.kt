@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -29,6 +30,9 @@ class MainFragment : Fragment(), MainRecyclerAdapter.MonsterItemListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (requireActivity() as AppCompatActivity).run {
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        }
         binding = FragmentMainBinding.inflate(inflater, container, false)
         val root: View = binding.root
         navController = findNavController()
