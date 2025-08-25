@@ -15,6 +15,7 @@ import com.jnasif.androiddataapps.LOG_TAG
 import com.jnasif.androiddataapps.R
 import com.jnasif.androiddataapps.data.Monster
 import com.jnasif.androiddataapps.databinding.FragmentMainBinding
+import com.jnasif.androiddataapps.ui.shared.SharedViewModel
 
 class MainFragment : Fragment(), MainRecyclerAdapter.MonsterItemListener {
 
@@ -22,7 +23,7 @@ class MainFragment : Fragment(), MainRecyclerAdapter.MonsterItemListener {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: SharedViewModel
     private lateinit var binding : FragmentMainBinding
     private lateinit var navController : NavController
 
@@ -39,7 +40,7 @@ class MainFragment : Fragment(), MainRecyclerAdapter.MonsterItemListener {
         binding.swipeLayout.setOnRefreshListener {
             viewModel.refreshData()
         }
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         viewModel.monsterData.observe(viewLifecycleOwner, Observer {
             val adapter = MainRecyclerAdapter(requireActivity(), it, this)
             binding.recyclerView.adapter = adapter
@@ -55,6 +56,7 @@ class MainFragment : Fragment(), MainRecyclerAdapter.MonsterItemListener {
 
     override fun onMonsterItemClick(monster: Monster) {
         Log.i(LOG_TAG, "Selected Monster: ${monster.name}")
+        viewModel.selectedMonster.value = monster
         navController.navigate(R.id.action_nav_detail)
     }
 
