@@ -14,6 +14,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.jnasif.androiddataapps.LOG_TAG
 import com.jnasif.androiddataapps.R
+import com.jnasif.androiddataapps.databinding.FragmentDetailBinding
 import com.jnasif.androiddataapps.ui.shared.SharedViewModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -53,10 +54,11 @@ class DetailFragment : Fragment() {
         setHasOptionsMenu(true)
         navController = findNavController()
         viewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
-        viewModel.selectedMonster.observe(this, Observer {
-            Log.i(LOG_TAG, "Selected Monster: ${it.name}")
-        })
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+        val binding = FragmentDetailBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+
+        return binding.root
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
