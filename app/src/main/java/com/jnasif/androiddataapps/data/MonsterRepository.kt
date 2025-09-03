@@ -42,4 +42,5 @@ class MonsterRepository(val app: Application) {
             callWebService()
         }
     }
+    
 }
