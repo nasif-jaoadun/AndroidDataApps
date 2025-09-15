@@ -1,10 +1,13 @@
 package com.jnasif.androiddataapps.data
 
+import android.Manifest
 import android.app.Application
 import android.content.Context
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.util.Log
 import androidx.annotation.WorkerThread
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import com.jnasif.androiddataapps.LOG_TAG
 import com.jnasif.androiddataapps.WEB_SERVICE_URL
@@ -55,15 +58,18 @@ class MonsterRepository(val app: Application) {
     }
 
     private fun saveDataTOCache(monsterData : List<Monster>){
-        val moshi = Moshi.Builder().build()
-        val listType = Types.newParameterizedType(List::class.java, Monster::class.java)
-        val adapter: JsonAdapter<List<Monster>> = moshi.adapter(listType)
-        val json = adapter.toJson(monsterData)
-        FileHelper.saveTextToFile(app, json)
+        if (ContextCompat.checkSelfPermission(app,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED){
+            val moshi = Moshi.Builder().build()
+            val listType = Types.newParameterizedType(List::class.java, Monster::class.java)
+            val adapter: JsonAdapter<List<Monster>> = moshi.adapter(listType)
+            val json = adapter.toJson(monsterData)
+            FileHelper.saveTextToExternalStorageFile(app, json)
+        }
     }
 
     private fun readDataFromCache() : List<Monster>{
-        val json= FileHelper.readTextFile(app)
+        val json= FileHelper.readTextFromExternalStorageFile(app)
         if (json == null){
             return emptyList()
         }
