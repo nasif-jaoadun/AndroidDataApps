@@ -1,9 +1,14 @@
 package com.jnasif.androiddataapps.data
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.jnasif.androiddataapps.IMAGE_BASE_URL
 import com.squareup.moshi.Json
 
+@Entity(tableName = "monsters")
 data class Monster (
+    @PrimaryKey(autoGenerate = true)
+    val monsterId: Int,
     @field:Json(name = "monsterName") val name: String,
     val imageFile: String,
     val caption: String,
