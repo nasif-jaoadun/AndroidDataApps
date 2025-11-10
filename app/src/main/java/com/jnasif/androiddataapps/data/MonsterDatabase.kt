@@ -6,19 +6,19 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [Monster::class], version = 1, exportSchema = false)
-abstract class MonsterDatabase : RoomDatabase() { 
+abstract class MonsterDatabase : RoomDatabase() {
     abstract fun monsterDao() : MonsterDao
     companion object {
         @Volatile
-        private var iNSTANCE : MonsterDatabase? = null
+        private var INSTANCE : MonsterDatabase? = null
 
         fun getDatabase(context: Context) : MonsterDatabase {
-            if(iNSTANCE == null) {
+            if(INSTANCE == null) {
                 synchronized(this){
-                    iNSTANCE = Room.databaseBuilder(context.applicationContext, MonsterDatabase::class.java, "monster.db").build()
+                    INSTANCE = Room.databaseBuilder(context.applicationContext, MonsterDatabase::class.java, "monster.db").build()
                 }
             }
-            return iNSTANCE!!
+            return INSTANCE!!
         }
     }
 }
