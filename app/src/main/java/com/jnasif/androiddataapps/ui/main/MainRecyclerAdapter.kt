@@ -9,8 +9,10 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.jnasif.androiddataapps.LAYOUT_TYPE_GRID
 import com.jnasif.androiddataapps.R
 import com.jnasif.androiddataapps.data.Monster
+import com.jnasif.androiddataapps.utilities.PrefsHelper
 
 class MainRecyclerAdapter(val context : Context, val monsters : List<Monster>, val itemListener: MonsterItemListener) : RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder>() {
 
@@ -24,7 +26,13 @@ class MainRecyclerAdapter(val context : Context, val monsters : List<Monster>, v
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.monster_grid_item, parent, false)
+        val layoutStyle = PrefsHelper.getItemType(parent.context)
+        val layoutId = if (layoutStyle == LAYOUT_TYPE_GRID){
+            R.layout.monster_grid_item
+        } else {
+            R.layout.monster_list_item
+        }
+        val view = inflater.inflate(layoutId, parent, false)
         return ViewHolder(view)
     }
 
