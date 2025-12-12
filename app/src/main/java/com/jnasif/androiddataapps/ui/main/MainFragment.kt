@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
@@ -74,6 +76,11 @@ class MainFragment : Fragment(), MainRecyclerAdapter.MonsterItemListener {
         navController.navigate(R.id.action_nav_detail)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.options_main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
             R.id.action_view_grid -> {
@@ -85,6 +92,9 @@ class MainFragment : Fragment(), MainRecyclerAdapter.MonsterItemListener {
                 PrefsHelper.setItemType(requireContext(), LAYOUT_TYPE_LIST)
                 binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
                 binding.recyclerView.adapter = adapter
+            }
+            R.id.action_settings -> {
+                navController.navigate(R.id.settingsActivity)
             }
         }
         return true
