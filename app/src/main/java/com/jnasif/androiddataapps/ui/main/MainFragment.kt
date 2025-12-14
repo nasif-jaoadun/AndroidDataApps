@@ -62,6 +62,9 @@ class MainFragment : Fragment(), MainRecyclerAdapter.MonsterItemListener {
             binding.recyclerView.adapter = adapter
             binding.swipeLayout.isRefreshing = false
         })
+        viewModel.activityTitle.observe(viewLifecycleOwner, Observer {
+            requireActivity().title = it
+        })
         return root
     }
 
@@ -100,4 +103,8 @@ class MainFragment : Fragment(), MainRecyclerAdapter.MonsterItemListener {
         return true
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.updateActivityTitle()
+    }
 }
