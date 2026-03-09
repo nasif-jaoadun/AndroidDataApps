@@ -40,8 +40,8 @@ class MainRecyclerAdapter(val context : Context, val monsters : List<Monster>, v
         val monster = monsters[position]
         with(holder) {
             nameText?.let {
-                it.text = monster.name
-                it.contentDescription = monster.name
+                it.text = monster.monsterName
+                it.contentDescription = monster.monsterName
             }
             ratingBar?.rating = monster.scariness.toFloat()
             Glide.with(context).load(monster.thumbnailUrl).into(monsterImage)

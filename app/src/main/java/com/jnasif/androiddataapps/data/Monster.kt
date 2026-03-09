@@ -9,7 +9,7 @@ import com.squareup.moshi.Json
 data class Monster (
     @PrimaryKey(autoGenerate = true)
     val monsterId: Int,
-    @field:Json(name = "monsterName") val name: String,
+    val monsterName: String,
     val imageFile: String,
     val caption: String,
     val description: String,

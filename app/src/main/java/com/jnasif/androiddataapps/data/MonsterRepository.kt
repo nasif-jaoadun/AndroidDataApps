@@ -16,6 +16,7 @@ import com.jnasif.androiddataapps.utilities.FileHelper
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,10 +25,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 class MonsterRepository(val app: Application) {
+    val coroutineExceptionHandler = CoroutineExceptionHandler{_, throwable ->
+        throwable.printStackTrace()
+    }
     val monsterData = MutableLiveData<List<Monster>>()
     private val monsterDao = MonsterDatabase.getDatabase(app).monsterDao()
     init {
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.IO ).launch {
             val data = monsterDao.getAll()
             if (data.isEmpty()){
                 callWebService()

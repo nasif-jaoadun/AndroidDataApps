@@ -74,7 +74,7 @@ class MainFragment : Fragment(), MainRecyclerAdapter.MonsterItemListener {
     }
 
     override fun onMonsterItemClick(monster: Monster) {
-        Log.i(LOG_TAG, "Selected Monster: ${monster.name}")
+        Log.i(LOG_TAG, "Selected Monster: ${monster.monsterName}")
         viewModel.selectedMonster.value = monster
         navController.navigate(R.id.action_nav_detail)
     }
